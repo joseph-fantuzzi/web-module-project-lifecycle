@@ -33,6 +33,23 @@ export default class App extends React.Component {
 
   onSubmitHandler = () => {
     //POST REQUEST
+    const newToDo = {
+      name: this.state.toDoInput,
+      completed: false,
+    };
+    axios
+      .post(URL, newToDo)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          toDos: [...this.state.toDos, res.data.data],
+          successMessage: res.data.message,
+          toDoInput: initialState.toDoInput,
+        });
+      })
+      .catch((err) => {
+        this.setState({ ...this.state, errorMessage: err.response.data.message });
+      });
   };
 
   completedItemHandler = (id) => {
