@@ -1,10 +1,13 @@
 import React from "react";
 import TodoList from "./TodoList";
 import Form from "./Form";
+import axios from "axios";
 
 const URL = "http://localhost:9000/api/todos";
 
 const initialState = {
+  successMessage: "",
+  errorMessage: "",
   toDos: [],
   toDoInput: "",
 };
@@ -12,8 +15,20 @@ const initialState = {
 export default class App extends React.Component {
   state = initialState;
 
-  getTodos = () => {
+  componentDidMount() {
+    this.getToDos();
+  }
+
+  getToDos = () => {
     //GET REQUEST
+    axios
+      .get(URL)
+      .then((res) => {
+        this.setState({ ...this.state, toDos: res.data.data, successMessage: res.data.message });
+      })
+      .catch((err) => {
+        this.setState({ ...this.state, errorMessage: err.response.data.message });
+      });
   };
 
   onSubmitHandler = () => {
