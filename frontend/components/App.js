@@ -37,6 +37,7 @@ export default class App extends React.Component {
       name: this.state.toDoInput,
       completed: false,
     };
+
     axios
       .post(URL, newToDo)
       .then((res) => {
@@ -54,6 +55,20 @@ export default class App extends React.Component {
 
   completedItemHandler = (id) => {
     //PATCH REQUEST
+    axios
+      .patch(`${URL}/${id}`)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          toDos: this.state.toDos.map((todo) => {
+            return id === todo.id ? { ...todo, completed: res.data.data.completed } : todo;
+          }),
+          successMessage: res.data.message,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   onChangeHandler = (key, value) => {

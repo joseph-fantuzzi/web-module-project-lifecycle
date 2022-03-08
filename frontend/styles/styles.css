@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'Titillium Web';
-  src: url('../fonts/TitilliumWeb-SemiBold.ttf');
+  font-family: "Titillium Web";
+  src: url("../fonts/TitilliumWeb-SemiBold.ttf");
 }
 
 body::after {
   content: "";
-  background: url('../images/Light-Gradient.jpeg');
+  background: url("../images/Light-Gradient.jpeg");
   opacity: 0.1;
   top: 0;
   left: 0;
@@ -15,20 +15,24 @@ body::after {
   z-index: -1;
 }
 
-body, input, button {
-  font-family: 'Titillium Web', sans-serif;
+body,
+input,
+button {
+  font-family: "Titillium Web", sans-serif;
   color: #484848;
 }
 
-#root, #wrapper {
+#root,
+#wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: #93005a;
-
 }
 
 h1 {
@@ -72,7 +76,8 @@ nav a.active {
   margin: 0 0 1rem 0;
 }
 
-ul, form {
+ul,
+form {
   margin: 1rem 0 1rem 0;
 }
 
@@ -82,4 +87,10 @@ ul, form {
 
 .todo:hover {
   cursor: pointer;
+}
+
+.checkbox {
+  color: green;
+  margin-left: 0.3em;
+  position: absolute;
 }
