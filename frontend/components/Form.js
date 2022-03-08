@@ -16,8 +16,13 @@ export default class Form extends React.Component {
     this.props.onClearCompletedHandler();
   };
 
+  showCompleted = (evt) => {
+    evt.preventDefault();
+    this.props.showCompletedHandler();
+  };
+
   render() {
-    const { toDoInput } = this.props;
+    const { toDoInput, toggleButton } = this.props;
 
     return (
       <>
@@ -31,7 +36,8 @@ export default class Form extends React.Component {
           />
           <button>Submit</button>
         </form>
-        <button onClick={this.onClearCompleted}>Clear Completed</button>
+        {!toggleButton && <button onClick={this.onClearCompleted}>Clear Completed</button>}
+        {toggleButton && <button onClick={this.showCompleted}>Show Completed</button>}
       </>
     );
   }

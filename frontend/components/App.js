@@ -6,6 +6,7 @@ import axios from "axios";
 const URL = "http://localhost:9000/api/todos";
 
 const initialState = {
+  toggleButton: false,
   successMessage: "",
   errorMessage: "",
   toDos: [],
@@ -81,23 +82,42 @@ export default class App extends React.Component {
   onClearCompletedHandler = () => {
     this.setState({
       ...this.state,
+      toggleButton: true,
       toDos: this.state.toDos.filter((todo) => {
         return todo.completed === false;
       }),
     });
   };
 
+  showCompletedHandler = () => {
+    axios
+      .get(URL)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          toggleButton: false,
+          toDos: res.data.data,
+          successMessage: res.data.message,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   render() {
-    const { toDos, toDoInput } = this.state;
+    const { toDos, toDoInput, toggleButton } = this.state;
 
     return (
       <>
         <TodoList toDos={toDos} completedItemHandler={this.completedItemHandler} />
         <Form
+          toggleButton={toggleButton}
           toDoInput={toDoInput}
           onChangeHandler={this.onChangeHandler}
           onSubmitHandler={this.onSubmitHandler}
           onClearCompletedHandler={this.onClearCompletedHandler}
+          showCompletedHandler={this.showCompletedHandler}
         />
       </>
     );
